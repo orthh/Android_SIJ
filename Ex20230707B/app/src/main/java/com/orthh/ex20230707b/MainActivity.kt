@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.abs
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     // 0부터 사진 갯수
 //    private var pictures: Array<Int> = Array(3){i->i}
     var index = 0
+//    사진만 추가하면 다 적용됨
     private var pics : Array<Int> = arrayOf(R.drawable.img0, R.drawable.img1, R.drawable.img2)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,21 +47,14 @@ class MainActivity : AppCompatActivity() {
 
     // 좌우 슬라이드 버튼 이미지 변경하는 함수
     fun movePicture(currentView :View){
-        if(currentView.id === R.id.btn_pre){
-            // left버튼
-            if(index === 0)index = pics.size -1
-            else index = --index % (pics.size)
-            index = abs(index)
-            iv1.setImageResource(pics[index])
-        }else{
-            // right버튼
-            index = ++index % (pics.size)
-            iv1.setImageResource(pics[index])
-
-        }
+        if(currentView.id === R.id.btn_pre)
+            index = if(index === 0) pics.size -1 else abs(--index % (pics.size))
+        else index = ++index % (pics.size)
+        iv1.setImageResource(pics[index])
     }
 
     fun ivClick(currentView: View){
-
+        iv1.setImageResource(pics[Random.nextInt(3)])
+//        Toast.makeText(applicationContext, "ㅎㅇㅎㅇ", Toast.LENGTH_SHORT).show()
     }
 }

@@ -16,7 +16,7 @@ import org.json.JSONObject
 
 class MovieActivity : AppCompatActivity() {
 
-    lateinit var tvMovie:TextView
+    lateinit var edtMovie:TextView
     lateinit var btnMovie: Button
     lateinit var lvMovieResult: ListView
 
@@ -27,7 +27,7 @@ class MovieActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie)
 
         // component 가져오기
-        tvMovie = findViewById(R.id.tvMovie)
+        edtMovie = findViewById(R.id.edtMovie)
         btnMovie = findViewById(R.id.btnMovie)
         lvMovieResult = findViewById(R.id.lvMovieResult)
         // RequestQueue 생성
@@ -39,13 +39,14 @@ class MovieActivity : AppCompatActivity() {
         btnMovie.setOnClickListener {
             val request = StringRequest(
                 Request.Method.GET,
-                "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20230717",
+                "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=${edtMovie.text.toString()}",
                 {
                     response ->Log.d("response", response.toString())
                     val result = JSONObject(response)
                     val dailyBoxOfficeList = result.getJSONObject("boxOfficeResult").getJSONArray("dailyBoxOfficeList")
                     for(i in 0 until dailyBoxOfficeList.length()){
                         var movie = dailyBoxOfficeList.get(i) as JSONObject
+
                         var rank = movie.getString("rank")
                         var movieNm = movie.getString("movieNm")
                         var openDt = movie.getString("openDt")
@@ -62,6 +63,8 @@ class MovieActivity : AppCompatActivity() {
 
 
                 )
+            // 여러번 누적할 경우 캐시 누적됨.
+            request.setShouldCache(false)
             reqQueue.add(request)
         }
         // 요청은 전체 데이터 가져오기

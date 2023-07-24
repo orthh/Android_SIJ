@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
+import com.orthh.a20230719.R
 
 class MainActivity : AppCompatActivity() {
 

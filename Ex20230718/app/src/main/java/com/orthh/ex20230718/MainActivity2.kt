@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
+import com.orthh.a20230719.R
+
 
 class MainActivity2 : AppCompatActivity() {
 

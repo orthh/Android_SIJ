@@ -45,6 +45,7 @@ class MainActivity2 : AppCompatActivity() {
                     var member = MemberVO(id, pw)
                     var it_result = Intent()
                     it_result.putExtra("member", Gson().toJson(member))
+//                    it_result.putExtra("id", member.id)
                     setResult(RESULT_OK, it_result)
                     finish()
                 }else{

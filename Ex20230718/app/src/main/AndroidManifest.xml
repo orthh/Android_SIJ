@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Ex20230718"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity2"
+            android:name=""
             android:exported="true" />
         <activity
             android:name=".MainActivity"

@@ -1,5 +1,6 @@
 package com.orthh.andserver
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +12,6 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         etPw = findViewById(R.id.etPw)
         etTel  = findViewById(R.id.etTel)
         etBirth = findViewById(R.id.etDate)
-        btnJoin = findViewById(R.id.btnJoin)
+        btnJoin = findViewById(R.id.btnLogin)
 
         reqQueue = Volley.newRequestQueue(this@MainActivity)
 
@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
             // 인터페이스 A가 있다면 new A 안됨. class B implements A 생성하고 new A() 해야하는데
             // 이걸 한번에 쉽게 하는것
             // StringRequest 구현하는 객체 생성
+            // 회원가입 실패
             val request = object:StringRequest(
                 Request.Method.POST, // post 요청시
                 "http://172.30.1.22:8888/join", // http 요청시 manifest.xml 에
@@ -54,6 +55,15 @@ class MainActivity : AppCompatActivity() {
                 {
                     response ->
                     Log.d("response", response.toString())
+                    if(response == "Success"){
+                        // 성공
+                        // LoginActivity 전환
+                        val it_next = Intent(this, LoginActivity::class.java)
+                        startActivity(it_next)
+                    }else{ // response == "Fail"
+                        // 실패
+                        Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    }
                 },{
                     error -> Log.d("error", error.toString())
                     Toast.makeText(this, "오류 발생!!!", Toast.LENGTH_SHORT).show()

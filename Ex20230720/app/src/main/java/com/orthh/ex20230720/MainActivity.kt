@@ -6,6 +6,8 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     // listView 의 업그레이드 버전
@@ -28,6 +30,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var btn_send : Button
     lateinit var edt_msg: EditText
 
+    // FireBase => 구글 클라우드 서버
+    // 클라우드 서버?
+    // 구글에서 일정량의 저장소와 서버를 구축해두고 Android 개발자에게 제공하는 서비스!
+    // 목적 : Android 개발자가 서버를 구현하는 번거로움을 해소!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +43,26 @@ class MainActivity : AppCompatActivity() {
         rv = findViewById(R.id.rv_result)
         btn_send = findViewById(R.id.btn_send)
         edt_msg = findViewById(R.id.edt_msg)
+
+        // firebase db 연동
+        // App에 연결되어있는 FireBase DataBase 객체 가져오기
+        val database = Firebase.database 
+        // Database 경로 가져오기
+        val myRef = database.getReference("message")
+        // 해당 경로에 데이터 저장하기
+
+        
+        
+        
+        
         var data = ArrayList<KakaoVO>()
 
-
         // add 함수 사용하여 메시지 5개 저장~
-        data.add(KakaoVO(R.drawable.img1, "피카츄", "피카피카", "4:17"))
-        data.add(KakaoVO(R.drawable.img2, "파이리", "파이파일파이리", "4:19"))
-        data.add(KakaoVO(R.drawable.img3, "꼬부기", "꼬북꼬북", "4:21"))
-        data.add(KakaoVO(R.drawable.img4, "이상해씨", "이상이상해", "4:23"))
-        data.add(KakaoVO(R.drawable.img5, "라이츄", "라이츄츄츄이츄", "4:33"))
+//        myRef.push().setValue(KakaoVO(R.drawable.img1, "김혁", "안녕하세요^^", "오후 4:17"))
+//        myRef.push().setValue(KakaoVO(R.drawable.img2, "신지훈", "다들 안녕하세요 반갑습니다.", "오후 4:19"))
+//        myRef.push().setValue(KakaoVO(R.drawable.img3, "신지영", "비가 많이오네요", "오후 4:21"))
+//        myRef.push().setValue(KakaoVO(R.drawable.img4, "이지희", "네 안녕하세요다들", "오후 4:23"))
+//        myRef.push().setValue(KakaoVO(R.drawable.img5, "서현록", "하이요", "오후 4:33"))
         
         var adapter: KakaoAdapter = KakaoAdapter(applicationContext, R.layout.template, data)
 
@@ -62,6 +80,8 @@ class MainActivity : AppCompatActivity() {
             edt_msg.text.clear()
 
         }
+
+        myRef.addChildEventListener(ChildEvent(data, adapter))
 
     }
 }

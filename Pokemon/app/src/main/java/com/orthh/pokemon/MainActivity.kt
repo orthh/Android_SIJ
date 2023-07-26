@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                     val pokemon = PokemonVO(id, imgUrl, name)
                     pokemonList.add(pokemon)
 
+
                     val adapter: PokemonAdapter = PokemonAdapter(pokemonList, applicationContext)
                     rcPoketmon.layoutManager = GridLayoutManager(applicationContext, 2 )
                     rcPoketmon.adapter = adapter

@@ -63,7 +63,15 @@ class MainActivity : AppCompatActivity() {
 //        myRef.push().setValue(KakaoVO(R.drawable.img3, "신지영", "비가 많이오네요", "오후 4:21"))
 //        myRef.push().setValue(KakaoVO(R.drawable.img4, "이지희", "네 안녕하세요다들", "오후 4:23"))
 //        myRef.push().setValue(KakaoVO(R.drawable.img5, "서현록", "하이요", "오후 4:33"))
-        
+
+
+        // 내가 보낸 채팅 오른쪽에 띄우는법 !
+        // 1. template.xml 파일에 오른쪽 톡 추가! (중요! 같은 파일에 추가 할 것!)
+        // 2. 현재 로그인한 ID를 adapter 생성자로 전송 => 메시지 주인
+        // 3. adapter 클래스의 onBindView메소드에서 data.get(position).name(메시지주인)과 생성자로
+        // 전달된 id를 비교
+        // 4. 일치한다면 왼쪽 뷰들은 전부 gone, 오른쪽 뷰들은 visible
+        //   template에 뷰가 추가됐으니 ViewHolder도 수정 필요!!!
         var adapter: KakaoAdapter = KakaoAdapter(applicationContext, R.layout.template, data)
 
         // layoutManager 세팅
@@ -71,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         rv.adapter = adapter
 
         btn_send.setOnClickListener {
-            data.add(KakaoVO(R.drawable.img1, "펑이", edt_msg.text.toString(), "오후 16:38"))
+            myRef.push().setValue(KakaoVO(R.drawable.img1, "펑이", edt_msg.text.toString(), "오후 16:38"))
             // adapter 새로고침
             adapter.notifyDataSetChanged()
             // 스크롤 옮기기

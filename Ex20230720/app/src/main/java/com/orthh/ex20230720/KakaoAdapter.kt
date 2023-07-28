@@ -42,7 +42,7 @@ class KakaoAdapter(var context: Context, var template : Int, var data: ArrayList
 
         var KakaoMessage : KakaoVO = data.get(position)
 
-        img.setImageResource(KakaoMessage.imgId)
+        img.setImageResource(KakaoMessage.imgId!!)
         tv_msg.text = KakaoMessage.msg
 
         // ver2.

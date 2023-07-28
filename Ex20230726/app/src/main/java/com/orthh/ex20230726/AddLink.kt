@@ -26,6 +26,8 @@ class AddLink : AppCompatActivity() {
             var it: Intent = Intent(this@AddLink, MainActivity::class.java)
             it.putExtra("linkName", edt_linkName.text.toString())
             it.putExtra("urlName", edt_urlName.text.toString())
+
+            // link 와 url 이 비어있지 않은지 검사! 하면 더 좋겠음~~
             setResult(RESULT_OK, it)
             finish()
         }

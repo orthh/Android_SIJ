@@ -12,9 +12,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.EditText
+import com.orthh.fragment.vo.BoardVO
 
 class Fragment2 : Fragment() {
-    // View 생성(**)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,10 +23,10 @@ class Fragment2 : Fragment() {
         var view: View = inflater.inflate(R.layout.fragment_2, container, false)
 
         // component 가져오기
-        var etUrl:EditText = view.findViewById(R.id.etUrl)
+        var etUrl: EditText = view.findViewById(R.id.etUrl)
         var btnUrl: Button = view.findViewById(R.id.btnUrl)
         // 버튼을 클릭하면 사용자가 작성한 url 값 가져오기
-        btnUrl.setOnClickListener { 
+        btnUrl.setOnClickListener {
             // 버튼을 클릭하면 사용자가 작성한 url 값 가져오기
             val url:String = etUrl.text.toString()
             // url 값 저장(SharedPreference -> 내부 메모리)
@@ -38,7 +38,7 @@ class Fragment2 : Fragment() {
             editor.commit()
         }
 
-        
+
 
         return view
     }

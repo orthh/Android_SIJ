@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             // SharedPreference 생성
 
-            editor.clear()
+//            editor.clear()
+            editor.remove("member");
             editor.commit() // 완료
 
             // MainActiviry로 전환(Intent)
@@ -61,6 +62,12 @@ class MainActivity : AppCompatActivity() {
             Log.d("id", it.itemId.toString())
 
             when (it.itemId) {
+                R.id.tab1 -> {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.fl,
+                        Fragment1()
+                    ).commit()
+                }
                 R.id.tab2 -> {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.fl,
